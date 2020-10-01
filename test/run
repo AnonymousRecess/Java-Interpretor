@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# This program is a simple regression tester.  For each test
+# directory, the interpreter is executed on programs in files whose
+# names match "prg*".  Input is from "inp", which is redirected to
+# stdin.  Output goes to "out", to which stdout is redirected.  After
+# each execution, "out" is compared to "exp", the expected output.
+
+Quote() {
+    sed 's/"/\\\"/g'
+}
+
+Prgs() {
+    for f ; do
+	echo -n "\"$(Quote <$f)\" "
+    done
+}
+
+for t in test-* ; do
+    echo ${t##*/}
+    [ -f $t/inp ] || > $t/inp
+    eval java -cp .. Interpreter "$(Prgs $t/prg*)" < $t/inp > $t/out
+    cmp -s $t/exp $t/out || echo ${t##*/} failed >&2
+done
