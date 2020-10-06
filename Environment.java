@@ -12,10 +12,21 @@
 //   https://www.tutorialspoint.com/java/java_map_interface.htm
 //   http://www.javatpoint.com/java-map
 // and elsewhere.
-
+import java.util.*;
 public class Environment {
-
-    public int put(String var, int val) { return val; }
-    public int get(int pos, String var) throws EvalException { return 0; }
+    
+ 
+    Map<String, Double> vas = new HashMap<String, Double>();
+    public double put(String var, double val) // changed int val to double val
+    {
+        vas.put(var,val);
+        return val;
+    }
+    public double get(int pos, String var) throws EvalException 
+    {
+        
+        return vas.get(var);
+        
+    }
 
 }

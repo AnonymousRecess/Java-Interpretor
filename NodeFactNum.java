@@ -6,8 +6,8 @@ public class NodeFactNum extends NodeFact {
 	this.num=num;
     }
 
-    public int eval(Environment env) throws EvalException {
-	return Integer.parseInt(num);
+    public double eval(Environment env) throws EvalException {
+	return Double.parseDouble(num);
     }
 
 }

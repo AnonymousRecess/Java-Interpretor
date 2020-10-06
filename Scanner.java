@@ -16,7 +16,7 @@ public class Scanner {
 	private Set < String > legits = new HashSet < String > (); // initialize legits Set
 	private Set < String > keywords = new HashSet < String > (); // initialize keywords Set
 	private Set < String > operators = new HashSet < String > (); // initialize operators Set
-
+	private Set < String > comments = new HashSet < String > (); // initialize operators Set
 	// initializers for previous sets
 
 	/** 
@@ -46,6 +46,7 @@ public class Scanner {
 	 */
 	private void initDigits(Set < String > s) {
 		fill(s, '0', '9'); // Pass the Set, lo('0'), and hi('9') paramaters for the fill function to add the characters in range to the Set
+		s.add("."); // add double support
 	}
 	
 	/**
@@ -83,6 +84,9 @@ public class Scanner {
 
 	private void initKeywords(Set < String > s) {}
 
+	private void initComments(Set < String > s) {
+		s.add("#");
+	}
 	/** 
 	 * This method initializes program, position and token variables and also calls the set initializer functions
 	 *  @param program This is the program sent to the Scanner as args[0]
@@ -97,6 +101,7 @@ public class Scanner {
 		initLegits(legits); // intitializes data in legits
 		initKeywords(keywords); // initializes data in keywords
 		initOperators(operators); // initializes data in operators
+		initComments(comments);
 	}
 
 	// handy string-processing methods
@@ -182,6 +187,13 @@ public class Scanner {
 			nextKwId(); // create keyword token
 		else if (operators.contains(c)) // check if c is in operators Set
 			nextOp();  // create a operator token 
+	
+		else if (comments.contains(c))
+			{
+				pos++;
+				past(c.charAt(0));
+				next();
+			}
 		else {
 			System.err.println("illegal character at position " + pos); // not a valid token
 			pos++; // increment scanner past invalid character

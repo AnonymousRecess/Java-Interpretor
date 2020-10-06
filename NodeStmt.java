@@ -6,7 +6,7 @@ public class NodeStmt extends Node {
 	this.assn=assn;
     }
 
-    public int eval(Environment env) throws EvalException {
+    public double eval(Environment env) throws EvalException {
 	return assn.eval(env);
     }
 

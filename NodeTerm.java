@@ -19,7 +19,7 @@ public class NodeTerm extends Node {
 	    this.term.append(term);
     }
 
-    public int eval(Environment env) throws EvalException {
+    public double eval(Environment env) throws EvalException {
 	return term==null
 	    ? fact.eval(env)
 	    : mulop.op(term.eval(env),fact.eval(env));
